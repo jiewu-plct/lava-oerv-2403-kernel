@@ -37,7 +37,9 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Build
         run: |
-          make ARCH=riscv defconfig
+          make mrproper
+          make ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- openeuler_defconfig
+          make ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- -j $(nproc)
           make ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- -j $(nproc)
           mkdir kernel_image
           cp arch/riscv/boot/Image kernel_image
